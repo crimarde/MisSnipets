@@ -1,6 +1,6 @@
 <?php
-$ruta = '';
-$lista = new ListaDirectorios($ruta,true,false,false,true);
+$rutaCarpeta = '';
+$lista = new ListaDirectorios($rutaCarpeta,true,false,false,true);
 
 class ListaDirectorios{
 	
