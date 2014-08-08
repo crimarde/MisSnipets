@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<!-- Bean para inyectar la dependencia en el setter -->
+	<bean id="saludoMetodo" class="beans.SaludoImpl">
+		<!-- Valor de la propiedad inyectada en el setter -->
+		<property name="saludo" value="¡¡Hola mundo!! (método)" />
+	</bean>
+	
+	<!-- Bean paa inyectar la dependencia en el constructor -->
+	<bean id="saludoConstructor" class="beans.SaludoImpl">
+		<!-- 
+		Cada uno de estos argumentos en un argumento que se 
+		le pasa al constructor de la clase 
+		-->
+		<constructor-arg value="¡¡Hola mundo!! (constructor)" />
+	</bean>
+</beans>

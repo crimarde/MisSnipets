@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- Declaro el bean proceso (Lo buen es que puedo cambiar el funcionamienot del programa 
+		simplmente cambiando esta linea y sin tocar una coma de la aplicación) -->
+    <bean id="proceso" class="ejemplo_4_beans.Concatenacion" />
+
+	
+    <bean id="miServicioRemoto" class="ejemplo_4_beans.ServicioRemoto"> 
+            <constructor-arg ref="proceso" /> <!-- Inyección de dependencia basada en el constructor -->
+            <property name="repeticiones" value="10" />
+    </bean>
+
+</beans>

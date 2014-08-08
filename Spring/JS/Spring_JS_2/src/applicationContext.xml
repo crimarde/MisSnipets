@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+	
+	<bean id="daiwm" class="clases.CarrerImpl">
+		<property name="universityName" value="IES Camp de Morvedre" />
+		<property name="name" value="Desarrollo de Aplicaciones Informaticas - Web - multiplataforma" />
+	</bean>
+	
+	<bean id="chris" class="clases.StudentImp">
+		<property name="name" value="Cristóbal Martínez del Vals" />
+		<property name="carrer" ref="daiwm" />
+	</bean>
+</beans>
+
+<!-- Lo que hace es: 
+	1.- Crear una clase de CarrerImpl (asignandole valores a la propiedades en los setter) 
+	2.- Crea un estudiante "Juanito" al que le asigna los un nombre y el objeto carrera creado en el paso 1.
+		El metodo graduate devuelve un objeto de la clase universityCertificate (que implementa a Certificate)	
+-->
