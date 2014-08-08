@@ -1,6 +1,6 @@
 <?php
-
-$lista = new ListaDirectorios('c:/pdf/',true,false,false,true);
+$ruta = '';
+$lista = new ListaDirectorios($ruta,true,false,false,true);
 
 class ListaDirectorios{
 	
