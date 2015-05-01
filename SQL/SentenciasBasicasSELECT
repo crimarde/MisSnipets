@@ -8,18 +8,33 @@
   
   ** WHERE -> La consulta devuelve sólo las lineas de la BD que cumplan la condicion o condiciones indicadas en el WHERE
   Operadores
-  = 	Igual
-  <> 	No igual. Nota: En algunas versiones de SQL se usa !=
-  > 	Mayor que
-  < 	Menor que
-  >= 	Mayor o igual que
-  <= 	Menor o igual que
-  BETWEEN 	Entre dos valores incluidos []
+    = 	Igual
+    <> 	No igual. Nota: En algunas versiones de SQL se usa !=
+    > 	Mayor que
+    < 	Menor que
+    >= 	Mayor o igual que
+    <= 	Menor o igual que
+  
+  BETWEEN 	Entre dos valores incluidos [], pueden ser números, texto o un rango de fechas
+    SELECT column_name(s)
+    FROM table_name
+    WHERE column_name BETWEEN value1 AND value2;
+  
   LIKE 	Busca en una cadena empleando un "patern"
-  IN 	Indica un grupo de posibles valores para una columna
-  SELECT * 
-  FROM Customers
-  WHERE CustomerID=1;
+    SELECT * 
+    FROM Customers
+    WHERE City LIKE 's%'; 
+    
+    WILDCARDS DE LIKE:
+    % 	Se sustituye por 0 o más caracteres
+    _ 	Se sustituye por un único caracter
+    [charlist] 	Establece un rango de caracteres a buscar
+    [^charlist] o [!charlist] La busqueda hace match sólo con caracteres que no estén incluidos en el rango
+  
+  IN 	Indica un grupo de posibles valores para una columna (= sólo permite uno)
+    SELECT column_name(s)
+    FROM table_name
+    WHERE column_name IN (value1,value2,...);
   
   AND / OR
   Estos operadores se usan para indicarle a la consulta que debe cumplir más de una condición a la vez
@@ -31,5 +46,22 @@
     AND City='Berlin';
     
   ** ORDER BY -> Se usa para ordenar el conjunto de resultados por un criterio
+  
+  
+SELECT TOP
+
+SELECT TOP number|percent column_name(s)
+FROM table_name;
+
+Especifica el número de filas a devolver. Esta sentencia varía mucho en función del SGBD que estemos usando:
+MySQL Syntax
+SELECT column_name(s)
+FROM table_name
+LIMIT number;
+
+Oracle Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE ROWNUM <= number;
   
   
