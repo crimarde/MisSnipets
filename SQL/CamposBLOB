@@ -1,0 +1,92 @@
+Los datos binarios permiten guardar en la base de datos archivos, imagenes, sonidos...
+
+En mi opinión en mejor guardar en la base de datos la ruuta al archivo en lugar del propio archivo binario, 
+pero por mi experiencia muchas empresas incluyen en los requerimientos de su software que se almacenen, generalmente
+las imágenes en formato binario en la base de datos.
+
+Procedimiento para cargar un un archivo existente en un campo BLOB:
+
+1. Crear un objeto directorio, un objeto Oracle, no el directorio físico. Ya que Oracle necesita el acceso al 
+directorio para lamacenar la imágen. Para crear un directorio hay que haberse logueado como DBA.
+
+CONNECT sys/&password@ORACLEBD as sysdba; 
+
+CREATE OR REPLACE 
+DIRECTORY IMAGES AS 'C:\ORACLE\BLOB\IMAGES';
+
+2. Ya que estamos logueados como DBA, aprovechamos para dar permisos de uso sobre el directorio a aquellos usuarios
+que los necesiten:
+
+GRANT READ ON DIRECTORY IMAGES to APP1 WITH GRANT OPTION;
+GRANT READ ON DIRECTORY IMAGES to PUBLIC;
+
+3. Evidentemente se necesita una tabla que tenga un campo BLOB. Por ejemplo:
+
+CREATE TABLE ARCHIVOS (
+  CO_ARCHIVO     VARCHAR2(6)   not null,
+  NOMBRE_ARCHIVO VARCHAR2(100) not null,
+  BIN            BLOB              null,
+  FECHA_ALTA     DATE              null,
+  CONSTRAINT PK_ARCHIVOS PRIMARY KEY (CO_ARCHIVO)
+) 
+
+4. Código de PL/SQL que permite cargar la imagen:
+  IMPORTANTE: La imagen DEBE existir físicamente el el directorio creado en el punto 1.
+  
+  
+DECLARE
+  l_bfile  BFILE;
+  l_blob   BLOB;
+BEGIN
+  INSERT INTO ARCHIVOS 
+    (CO_ARCHIVO, NOMBRE_ARCHIVO, BIN, FX_ALTA)
+  VALUES 
+   ('000001','imagen.gif',EMPTY_BLOB(),SYSDATE)
+  RETURN BIN INTO l_blob;
+  
+  
+  l_bfile := BFILENAME('IMAGES', 'imagen.gif');
+  DBMS_LOB.fileopen(l_bfile, Dbms_Lob.File_Readonly);
+  DBMS_LOB.loadfromfile(l_blob,l_bfile,DBMS_LOB.getlength(l_bfile));
+  DBMS_LOB.fileclose(l_bfile);
+  COMMIT;
+ 
+EXCEPTION WHEN OTHERS THEN
+   ROLLBACK;
+   RAISE;
+END;
+
+// Algunas aclaraciones
+El uso de RETURN en la sentencia INSERT. Nos permite establecer una referencia al campo BIN insertado en la variable l_blob, de tipo BLOB.
+La función EMPTY_BLOB.Nos permite insertar un valor nulo en un campo BLOB.
+La función BFILENAME, devuelve un objeto BFILE que representa la ruta del fichero "imagen.gif" que queremos almacenar en la tabla.
+El uso del paquete predefinido de ORACLE DBMS_LOB. Es el paquete que proporciona ORACLE para trabajar con tipos binarios. Utilizamos la siguientes funciones:
+  * fileopen: Abre el archivo definido por BFILE (l_bfile) en el modo indicado (en nuestro caso solo lectura Dbms_Lob.File_Readonly)
+  * loadfromfile: Lee un determinado nÃºmero de bytes (en nuestro caso todos) del fichero definido por BFILE(l_bfile) en un objeto de tipo BLOB (l_blob).
+  * getlength:Devuelve el tamaÃ±o del archivo en bytes.
+  * fileclose:Cierra el archivo
+  
+A persar de haber insertado el campo BIN vacio con la función EMPTY_BLOB, la imagen se cargada en la base de datos sin ejecutar ninguna sentencia UPDATE. Es debido a que empleamos RETURN en la sentencia INSERT y guardando una referencia al campo BIN que posteriormente asignamos al leer el archivo con DBMS_LOB.loadfromfile.
+
+
+
+/** Código similar pero creando un procedimiento almacenado en la BD */
+CREATE OR REPLACE PROCEDURE agregaImagen
+  (directorio IN varchar2, archivoImagen IN varchar2) as
+  f_lob bfile;
+  b_lob blob;
+
+BEGIN
+  f_lob := bfilename(directorio, archivoImagen);
+  INSERT INTO T_imagenes VALUES ( 'id1', empty_blob() )
+  RETURNING img into b_lob;
+    --Abrir archivo
+  dbms_lob.fileopen(f_lob,dbms_lob.file_readonly);
+    --Leer archivo
+  dbms_lob.loadfromfile(b_lob, f_lob, dbms_lob.getlength(f_lob));
+    --Cerrar archivo
+  dbms_lob.fileclose(f_lob);
+  commit;
+END;
+
+USO:  execute agregaImagen('IMAGEN_DIR','miimagen.gif')
