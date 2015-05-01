@@ -1,0 +1,11 @@
+UNION combina los resultados de dos o más sonsultas. Hay que notar que ambas consultas deben tener las mismas columnas.
+
+SELECT column_name(s) FROM table1
+UNION
+SELECT column_name(s) FROM table2;
+
+UNION por defecto no permite duplicados, si los queremos incluir hay que usar la sentencias UNION ALL
+
+SELECT column_name(s) FROM table1
+UNION ALL
+SELECT column_name(s) FROM table2;
