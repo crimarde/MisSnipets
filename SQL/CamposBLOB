@@ -9,7 +9,8 @@ Procedimiento para cargar un un archivo existente en un campo BLOB:
 1. Crear un objeto directorio, un objeto Oracle, no el directorio físico. Ya que Oracle necesita el acceso al 
 directorio para lamacenar la imágen. Para crear un directorio hay que haberse logueado como DBA.
 
-CONNECT sys/&password@ORACLEBD as sysdba; 
+CONNECT usuario/password@ORACLEBD as sysdba; 
+CONNECT usuario/password as sysdba; 
 
 CREATE OR REPLACE 
 DIRECTORY IMAGES AS 'C:\ORACLE\BLOB\IMAGES';
