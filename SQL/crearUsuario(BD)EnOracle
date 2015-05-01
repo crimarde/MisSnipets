@@ -1,4 +1,4 @@
-Con oracle no se pueden crear base de datos (CREATE DATABASE) debido a que todo se centraliza en una sola base de datos. 
+Con Oracle XE no se pueden crear base de datos (CREATE DATABASE) debido a que todo se centraliza en una sola base de datos. 
 Lo que debemos hacer es crear un usuario(db_productos) con su propio esquema.
 
 CREATE USER NombreDeUsuario IDENTIFIED BY PaswordUsuario
