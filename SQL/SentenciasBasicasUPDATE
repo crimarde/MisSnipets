@@ -1,0 +1,5 @@
+Actualiza todas la filas que cumplan la condicion (si no se indica la condición se actualizan todas las filas)
+
+UPDATE table_name
+SET column1=value1,column2=value2,...
+WHERE some_column=some_value;
