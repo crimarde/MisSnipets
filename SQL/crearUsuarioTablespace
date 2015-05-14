@@ -1,0 +1,21 @@
+--Crear un tablespace para el usuario
+CREATE TABLESPACE practicas
+DATAFILE 'practicas.dat'
+SIZE 10M AUTOEXTEND ON;
+
+--Crear un tablespace temporal para las transacciones
+CREATE TEMPORARY TABLESPACE practicas_temp
+TEMPFILE 'practicas_temp.dat'
+SIZE 5M AUTOEXTEND ON;
+
+
+--Crear un usuario y asignarle los tablespaces
+create user chris
+identified by chris
+default tablespace practicas
+temporary tablespace practicas_temp;
+
+--Darle permisos para loguearse en la BD
+GRANT CREATE SESSION TO chris;
+--Darle permisos para crear tablas
+GRANT CREATE TABLE TO chris;
