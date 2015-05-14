@@ -6,7 +6,7 @@ Posibilidades para indicar la condición de unión:
   FROM Orders, Customers
   WHERE Orders.CustomerID=Customers.CustomerID; 
 
-  2. Usando ON
+  2. Usando JOINS + ON
   SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
   FROM Orders INNER JOIN Customers
   ON Orders.CustomerID=Customers.CustomerID; 
@@ -16,7 +16,7 @@ TIPOS DE JOINS:
   INNER JOIN: Devuelve todas las filas en las que hay al menos una coincidencia entre las DOS tablas (INTERSECCION)
   LEFT JOIN: Devuelve todas las filas de la tabla izquierda y las columnas de la tabla derecha que cumplen la condición      del join.
   RIGHT JOIN: Devuelve todas las filas de la tabla derecha y las columnas de la tabla izquierda que cumplen la condición     del join.
-  FULL JOIN: Devuelbe todas las filas en las que hay coincidencia en UNA de las tablas.
+  FULL JOIN: Devuelve todas las filas en las que hay coincidencia en UNA de las tablas.
 
 
 INNER JOIN:
