@@ -259,9 +259,26 @@ REM ******** FIN ***********************
 		FROM EMPLE 
 		WHERE DEPT_NO = E.DEPT_NO);
 
--7-
+-7- Visualiza el tema, estante y ejemplares de las filas de LIBRERIA con ejemplares comprendidos entre 8 y 15
 	
+	SELECT tema, estante, ejemplares 
+	from LIBRERIA
+	where EJEMPLARES BETWEEN 8 AND 15;
 
--8-
+-8- Visualiza las columnas TEMA, ESTANTE y EJEMPLARES de las filas cuyo ESTANTE no esté comprendido entre la "B" y la "D".
+	
+	SELECT tema, estante, ejemplares 
+	from LIBRERIA
+	where Estante not BETWEEN 'B' AND 'D';	
 
--9-
+-9- Visualiza con una sola orden SELECT todos los temas de LIBRERIA cuyo número de ejemplares sea inferior a los que hay en "MEDICINA". 
+	
+	SELECT l2.TEMA
+	FROM libreria l1,libreria l2
+	where l1.TEMA='Medicina' and l2.EJEMPLARES < l1.EJEMPLARES ;
+
+-10- Visualiza los temas de LIBRERIA cuyo número de ejemplares no esté entre 15 y 20, ambos incluidos.
+	
+	SELECT tema
+	FROM libreria 
+	where EJEMPLARES not BETWEEN 15 and 20 ;
