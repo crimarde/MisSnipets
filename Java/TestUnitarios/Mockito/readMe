@@ -1,1 +1,21 @@
+Mockito.
 
+Para que sirve mockito?
+
+Cuando se realiza un test unitario y una de las clases que estamos probando tiene dependencias con otras clases, 
+generalmente en forma de @Autowied Clase, es interesante el uso de mocks.
+Un mock "simula" a una clase, de manera que nos podemos centrar en la clase a testear. El mock permite verificar el 
+comportamiento de las clases mockeadas, así como de sus métodos (si se llaman o no, número de llamadas, retorno de los métodos...)
+
+La idea de las pruebas al usar mockito es el concepto de stubbing – ejecutar – verificar 
+(programar un comportamiento, ejecutar las llamadas y verificar las llamadas), donde centraremos nuestros esfuerzos, 
+no en los resultados obtenidos por los métodos a probar (o al menos no solo en ello), si no en las interacciones de las 
+clases a probar y las clases de apoyo, de las cuales generamos mocks.
+
+Dependencia de Maven
+
+<dependency>
+	<groupId>org.mockito</groupId>
+	<artifactId>mockito-core</artifactId>
+	<version>1.10.19</version>
+</dependency>
