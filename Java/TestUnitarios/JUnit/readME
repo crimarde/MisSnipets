@@ -8,3 +8,66 @@ Deendencia de maven para la versión actual 08/2015
   <version>4.12</version>
   <scope>test</scope>
 </dependency>
+
+JUnit
+Que es JUnit?
+El framework JUnit, es un framework que nos permite realizar pruebas unitarias de nuestro codigo de manera controlada para verificar que todo este funcionando correctamente.
+
+¿Que es una prueba unitaria?
+Una prueba unitaria es una pieza de código escrito por un desarrollador que ejecuta una funcionalidad específica en el código que se prueba. El porcentaje de código que está probado por las pruebas unitarias normalmente se llama cobertura de la prueba.
+Una prueba unitaria se dirige a una pequeña unidad de código, por ejemplo, un método o una clase, (pruebas locales).
+Las pruebas unitarias aseguran que el código funciona como está previsto. También  en el caso de tener que modificar el código para la fijación de un error o ampliar la funcionalidad.
+
+¿Que es una prueba de Integración?
+En estas pruebas comprobaremos la correcta integración de los módulos, es decir que el modulo de facturación este llamando correctamente al de cliente, etc. Con esto no verificamos el método puntual altaCliente por ejemplo si no al llamado de generarFactura.
+
+
+Para crear un test dentro de una clase ahora solo hace falta la anotación @test, ya no es necesario que el nombre del método empiece con la palabra test.
+Ademas de las funciones setUp y tearDown existentes en la versión 3.x se agregaron 2 nuevas que se ejecutan una sola vez al inicio del test setUpClass y una sola vez al finalizar todos los test tearDownClass.
+
+En este momento JUnit soporta la siguientes anotaciones:
+
+    @Before
+    @BeforeClass
+    @After
+    @AfterClass
+    @Test
+    @Ignore
+    @Test(timeout)
+    @Test(expected)
+    @RunWith
+    @Suite.SuiteClasses
+
+@Test
+La annotation @Test es simplemente para identificar que el método sera un método a testear.
+@Test(timeout)
+La annotation @Test(timeout) sirve para decirle a JUnit que si el método tarda mas del tiempo esperado el mismo tiene que fallar, esto es ideal para verificar procesos con demora aceptable. El tiempo se debe asignar en mili segundos. En el caso que el test no termine en el tiempo deseado sera marcado como fallido.
+@Test(expected)
+La annotation @Test(expected) sirve para avisar que el test debe lanzar algún tipo de excepción. En el caso que no se cumpla la condición el test sera marcado como fallido.
+@Ignore
+La annotation @Ignore sirve para avisarle al JUnit que ignore este método, esta anotación se utiliza generalmente cuando por alguna razón hemos modificado el código y estamos trabajando en el test. Puede ser que todavía nosotros no hallamos incluido código o que dependemos que algún desarrollador termine algo. 
+@Before Y @After
+En  JUnit4 no existe la función setUp() o  tearDown(), en ves de eso tenemos las anotaciones @Before and @After. 
+	@Before: Significa que se ejecutara antes de cada método.
+	@After: Significa que se ejecutara después de cada método.
+Tenemos que tener en cuenta, que se ejecutaran tantos Before como After por cada @Test que tengamos.
+@BeforeClass Y @AfterClass
+En  JUnit4 existen dos funciones que se ejecutaran por única vez antes de todos los métodos y después de todos los métodos		
+	@BeforeClass: Significa que se ejecutara antes de todos método.
+	@AfterClass: Significa que se ejecutara después de todos método.
+@RunWith
+La anotación  @RunWith se utiliza para indicar que dicha clase se correrá como una extensión o tipo de otra clase. 
+
+
+Asserts  ¿Como comparar resultados con JUnit?
+JUnit proporciona métodos estáticos en la clase Assert para probar ciertas condiciones. Estos métodos de afirmación típicamente comienzan con assert y le permiten especificar el mensaje de error, el esperado y el resultado real. Un método afirmación compara el valor real devuelto por una prueba para el valor esperado, y se produce una AssertionException si la prueba de comparación falla.
+assertArrayEquals () probará si dos matrices son iguales entre sí.
+assertEquals() compara si dos objetos son iguales, utiliza el método equals()
+assertTrue() y assertFalse() simplemente validan un resultado si es verdadero o falso
+assertNull() y assertNotNull() simplemente validan un resultado si es nulo o no
+assertSame () y assertNotSame () prueban si dos referencias a objetos apuntan al mismo objeto o no. No es suficiente que los dos objetos son iguales . Debe ser exactamente el mismo objeto al que apunta.
+El método assertThat() compara un objeto con una org.hamcrest.Matcher para ver si el objeto concuerda con la comparacion
+
+
+JUnit - ¿Que es un Test Suite?
+Los Test Suite, es un conjunto de test agrupados, generalmente los test automatizados se encuentran separados lo cual es bastante engorroso probar uno por uno, por eso mismo lo idea es agruparlos y correr/lanzar el agrupador de test.
