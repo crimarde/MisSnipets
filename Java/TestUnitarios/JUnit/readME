@@ -1,1 +1,10 @@
+Snipets de código para la realización de test unitarios con JUnit.
 
+Deendencia de maven para la versión actual 08/2015
+
+<dependency>
+  <groupId>junit</groupId>
+  <artifactId>junit</artifactId>
+  <version>4.12</version>
+  <scope>test</scope>
+</dependency>
